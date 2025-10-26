@@ -11,6 +11,11 @@ export default async function (fastify, opts) {
     return 'POST /users'
   })
 
+  fastify.get('/users/:id/posts/:postId', async (request, reply) => {
+    const { id, postId } = request.params
+    return `User ID: ${id}; Post ID: ${postId}`
+  })
+
   fastify.get('/hello', async (request, reply) => {
     const { name } = request.query
 
