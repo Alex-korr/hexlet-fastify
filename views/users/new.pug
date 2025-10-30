@@ -1,0 +1,36 @@
+extends ../layouts/main.pug
+
+block content
+  .row
+    .col-md-6.mx-auto
+      h1.mb-4 📝 User Registration
+      
+      // Display error message if validation failed
+      if error
+        .alert.alert-danger.mb-3
+          strong Validation Error:
+          br
+          = error.message
+      
+      form(action='/users', method='post')
+        .mb-3
+          label.form-label Name:
+          input.form-control(type='text', name='name', placeholder='Enter your name', value=name, required)
+        
+        .mb-3
+          label.form-label Email:
+          input.form-control(type='email', name='email', placeholder='example@mail.com', value=email, required)
+        
+        .mb-3
+          label.form-label Password:
+          input.form-control(type='password', name='password', placeholder='Minimum 6 characters', value=password, required)
+        
+        .mb-3
+          label.form-label Password Confirmation:
+          input.form-control(type='password', name='passwordConfirmation', placeholder='Repeat password', value=passwordConfirmation, required)
+        
+        .d-grid
+          button.btn.btn-primary.btn-lg(type='submit') 🚀 Register
+        
+        .text-center.mt-3
+          a(href='/users') ← Back to user list

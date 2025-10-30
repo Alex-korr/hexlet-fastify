@@ -16,11 +16,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^5.0.0",
-    "fastify-plugin": "^5.0.0",
     "@fastify/autoload": "^6.0.0",
+    "@fastify/formbody": "^8.0.2",
     "@fastify/sensible": "^6.0.0",
-    "fastify-cli": "^7.4.0"
+    "@fastify/view": "^11.1.1",
+    "fastify": "^5.0.0",
+    "fastify-cli": "^7.4.0",
+    "fastify-plugin": "^5.0.0",
+    "pug": "^3.0.3",
+    "yup": "^1.7.1"
   },
   "devDependencies": {
     "c8": "^10.1.2"

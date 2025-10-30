@@ -1,0 +1,28 @@
+extends layouts/main.pug
+
+block content
+  .row
+    .col-md-8.mx-auto.text-center
+      h1.display-4 🚀 Welcome!
+      p.lead This is my first Fastify application with Pug templates
+      hr.my-4
+      p Here you can:
+      .row
+        .col-md-4
+          .card.mb-3
+            .card-body
+              h5.card-title 👥 Users
+              p.card-text View the list of users
+              a.btn.btn-primary(href="/users") Go
+        .col-md-4
+          .card.mb-3
+            .card-body
+              h5.card-title 📚 Courses
+              p.card-text View and manage courses
+              a.btn.btn-warning(href="/courses") Go
+        .col-md-4
+          .card.mb-3
+            .card-body
+              h5.card-title 👋 Greeting
+              p.card-text Personal greeting
+              a.btn.btn-success(href="/hello") Try it

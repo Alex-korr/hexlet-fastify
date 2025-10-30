@@ -1,0 +1,39 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    title My Fastify App
+    //- Bootstrap CSS
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css", rel="stylesheet")
+  body
+    //- Header with navigation
+    nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
+      .container
+        a.navbar-brand(href="/") 🚀 My Fastify App
+        button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav")
+          span.navbar-toggler-icon
+        .collapse.navbar-collapse#navbarNav
+          ul.navbar-nav.ms-auto
+            li.nav-item
+              a.nav-link(href="/") Home
+            li.nav-item
+              a.nav-link(href="/users") Users
+            li.nav-item
+              a.nav-link(href="/courses") Courses
+            li.nav-item
+              a.nav-link(href="/hello") Greeting
+
+    //- Main content
+    main.container.my-4
+      block content
+
+    //- Footer
+    footer.bg-light.text-center.py-3.mt-5
+      .container
+        p.mb-0 
+          | Made with ❤️ | 
+          a(href="https://github.com/Alex-korr", target="_blank") My GitHub
+
+    //- Bootstrap JS
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js")
