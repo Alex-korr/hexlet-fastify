@@ -12,20 +12,37 @@ const courses = [
   { id: 2, title: 'React Development', description: 'Build modern web applications with React framework' }
 ]
 
+// Named routes object
+const routes = {
+  // Main page
+  rootPath: () => '/',
+  
+  // Users
+  usersPath: () => '/users',
+  newUserPath: () => '/users/new',
+  
+  // Courses
+  coursesPath: () => '/courses',
+  newCoursePath: () => '/courses/new',
+  
+  // Other
+  helloPath: () => '/hello',
+}
+
 export default async function (app, opts) {
-  app.get('/', async function (request, reply) {
-    return reply.view('index')
+  app.get(routes.rootPath(), async function (request, reply) {
+    return reply.view('index', { routes })
   })
 
-   app.get('/users', async (request, reply) => {
-    return reply.view('users/index', { users })
+   app.get(routes.usersPath(), async (request, reply) => {
+    return reply.view('users/index', { users, routes })
   })
 
-  app.get('/users/new', async (request, reply) => {
-    return reply.view('users/new')
+  app.get(routes.newUserPath(), async (request, reply) => {
+    return reply.view('users/new', { routes })
   })
 
-  app.post('/users', {
+  app.post(routes.usersPath(), {
     attachValidation: true,
     schema: {
       body: yup.object({
@@ -62,6 +79,7 @@ export default async function (app, opts) {
         password,
         passwordConfirmation,
         error: request.validationError,
+        routes,
       }
       
       // Re-render form with errors and preserved data
@@ -80,19 +98,19 @@ export default async function (app, opts) {
     users.push(user)
     
     // Redirect to user list
-    return reply.redirect('/users')
+    return reply.redirect(routes.usersPath())
   })
 
   // Course routes
-  app.get('/courses', async (_request, reply) => {
-    return reply.view('courses/index', { courses })
+  app.get(routes.coursesPath(), async (_request, reply) => {
+    return reply.view('courses/index', { courses, routes })
   })
 
-  app.get('/courses/new', async (_request, reply) => {
-    return reply.view('courses/new')
+  app.get(routes.newCoursePath(), async (_request, reply) => {
+    return reply.view('courses/new', { routes })
   })
 
-  app.post('/courses', {
+  app.post(routes.coursesPath(), {
     attachValidation: true,
     schema: {
       body: yup.object({
@@ -118,6 +136,7 @@ export default async function (app, opts) {
         title,
         description,
         error: request.validationError,
+        routes,
       }
       
       // Re-render form with errors and preserved data
@@ -135,10 +154,10 @@ export default async function (app, opts) {
     courses.push(course)
     
     // Redirect to course list
-    return reply.redirect('/courses')
+    return reply.redirect(routes.coursesPath())
   })
 
-  app.get('/hello', async (request, reply) => {
+  app.get(routes.helloPath(), async (request, reply) => {
     const { name } = request.query
 
     if (name) {

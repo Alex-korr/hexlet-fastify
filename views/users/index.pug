@@ -5,12 +5,12 @@ block content
     .col-12
       .d-flex.justify-content-between.align-items-center.mb-4
         h1 👥 User List
-        a.btn.btn-success(href='/users/new') ➕ Add User
+        a.btn.btn-success(href=routes.newUserPath()) ➕ Add User
       
       if users.length === 0
         .alert.alert-info
           | No users yet. 
-          a(href='/users/new') Add the first one!
+          a(href=routes.newUserPath()) Add the first one!
       else
         .row
           each user in users

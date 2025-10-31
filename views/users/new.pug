@@ -12,7 +12,7 @@ block content
           br
           = error.message
       
-      form(action='/users', method='post')
+      form(action=routes.usersPath(), method='post')
         .mb-3
           label.form-label Name:
           input.form-control(type='text', name='name', placeholder='Enter your name', value=name, required)
@@ -33,4 +33,4 @@ block content
           button.btn.btn-primary.btn-lg(type='submit') 🚀 Register
         
         .text-center.mt-3
-          a(href='/users') ← Back to user list
+          a(href=routes.usersPath()) ← Back to user list

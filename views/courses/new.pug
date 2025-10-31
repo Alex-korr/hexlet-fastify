@@ -12,7 +12,7 @@ block content
           br
           = error.message
       
-      form(action='/courses', method='post')
+      form(action=routes.coursesPath(), method='post')
         .mb-3
           label.form-label Course Title:
           input.form-control(type='text', name='title', placeholder='Enter course title', value=title, required)
@@ -25,4 +25,4 @@ block content
           button.btn.btn-primary.btn-lg(type='submit') 🚀 Create Course
         
         .text-center.mt-3
-          a(href='/courses') ← Back to course list
+          a(href=routes.coursesPath()) ← Back to course list

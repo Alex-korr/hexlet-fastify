@@ -5,12 +5,12 @@ block content
     .col-12
       .d-flex.justify-content-between.align-items-center.mb-4
         h1 📚 Course List
-        a.btn.btn-success(href='/courses/new') ➕ Add Course
+        a.btn.btn-success(href=routes.newCoursePath()) ➕ Add Course
       
       if courses.length === 0
         .alert.alert-info
           | No courses yet. 
-          a(href='/courses/new') Add the first one!
+          a(href=routes.newCoursePath()) Add the first one!
       else
         .row
           each course in courses

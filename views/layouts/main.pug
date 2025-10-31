@@ -10,19 +10,19 @@ html(lang="en")
     //- Header with navigation
     nav.navbar.navbar-expand-lg.navbar-dark.bg-primary
       .container
-        a.navbar-brand(href="/") 🚀 My Fastify App
+        a.navbar-brand(href=routes.rootPath()) 🚀 My Fastify App
         button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav")
           span.navbar-toggler-icon
         .collapse.navbar-collapse#navbarNav
           ul.navbar-nav.ms-auto
             li.nav-item
-              a.nav-link(href="/") Home
+              a.nav-link(href=routes.rootPath()) Home
             li.nav-item
-              a.nav-link(href="/users") Users
+              a.nav-link(href=routes.usersPath()) Users
             li.nav-item
-              a.nav-link(href="/courses") Courses
+              a.nav-link(href=routes.coursesPath()) Courses
             li.nav-item
-              a.nav-link(href="/hello") Greeting
+              a.nav-link(href=routes.helloPath()) Greeting
 
     //- Main content
     main.container.my-4
