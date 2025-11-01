@@ -12,17 +12,24 @@ block content
           .card.mb-3
             .card-body
               h5.card-title 👥 Users
-              p.card-text View the list of users
-              a.btn.btn-primary(href=routes.usersPath()) Go
+              p.card-text Manage users: view, create, edit, delete
+              .d-grid
+                a.btn.btn-primary(href=routes.usersPath()) 📋 View All Users
+              .d-grid.mt-2
+                a.btn.btn-success.btn-sm(href=routes.newUserPath()) ➕ Add New User
         .col-md-4
           .card.mb-3
             .card-body
               h5.card-title 📚 Courses
-              p.card-text View and manage courses
-              a.btn.btn-warning(href=routes.coursesPath()) Go
+              p.card-text Manage courses: view, create, edit, delete
+              .d-grid
+                a.btn.btn-warning(href=routes.coursesPath()) 📋 View All Courses
+              .d-grid.mt-2
+                a.btn.btn-success.btn-sm(href=routes.newCoursePath()) ➕ Add New Course
         .col-md-4
           .card.mb-3
             .card-body
               h5.card-title 👋 Greeting
-              p.card-text Personal greeting
-              a.btn.btn-success(href="/hello") Try it
+              p.card-text Personal greeting service
+              .d-grid
+                a.btn.btn-info(href=routes.helloPath()) 👋 Say Hello

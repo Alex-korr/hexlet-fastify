@@ -1,0 +1,53 @@
+extends ../layouts/main.pug
+
+block content
+  .row
+    .col-md-10.mx-auto
+      .d-flex.justify-content-between.align-items-center.mb-4
+        h1 📖 Course Details
+        .btn-group
+          a.btn.btn-primary(href=routes.editCoursePath(course.id)) Edit
+          a.btn.btn-outline-secondary(href=routes.coursesPath()) ← Back to List
+      
+      .card
+        .card-header.bg-primary.text-white
+          .row
+            .col-md-8
+              h3.mb-0 #{course.title}
+            .col-md-4.text-end
+              span.badge.bg-light.text-dark ID: #{course.id}
+        
+        .card-body
+          .row
+            .col-md-8
+              h5.text-muted.mb-3 📝 Description:
+              p.lead #{course.description}
+              
+              .mt-4
+                h6.text-muted 📊 Course Information:
+                ul.list-unstyled
+                  li
+                    strong Title Length: 
+                    span.text-success #{course.title.length} characters
+                  li
+                    strong Description Length: 
+                    span.text-success #{course.description.length} characters
+                  li
+                    strong Course ID: 
+                    span.text-info #{course.id}
+            
+            .col-md-4
+              .text-center
+                .bg-success.text-white.rounded-circle.mx-auto.d-flex.align-items-center.justify-content-center.mb-3(style="width: 120px; height: 120px; font-size: 3rem;")
+                  | 📚
+                h5.text-muted Course
+      
+      .mt-4
+        .card.border-danger
+          .card-header.bg-danger.text-white
+            h5.mb-0 ⚠️ Danger Zone
+          .card-body
+            p.text-muted Delete this course permanently. This action cannot be undone.
+            form.d-inline(action=routes.coursePath(course.id), method='post')
+              input(type='hidden', name='_method', value='DELETE')
+              button.btn.btn-danger(type='submit', onclick="return confirm('Are you sure you want to delete this course?')") Delete Course

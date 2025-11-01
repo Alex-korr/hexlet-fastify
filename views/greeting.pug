@@ -1,0 +1,41 @@
+extends layouts/main.pug
+
+block content
+  .row
+    .col-md-8.mx-auto.text-center
+      .card.border-success
+        .card-header.bg-success.text-white
+          h3.mb-0 👋 Personal Greeting Service
+        
+        .card-body.p-5
+          if name
+            .alert.alert-success.border-0.shadow-sm
+              h2.display-4.text-success.mb-3 Hello, #{name}! 🎉
+              p.lead.text-muted Nice to meet you!
+          else
+            h2.display-4.text-primary.mb-4 Hello, World! 🌍
+            p.lead.text-muted Welcome to our greeting service!
+          
+          hr.my-4
+          
+          .row
+            .col-md-6.mx-auto
+              if !name
+                h5.mb-3 Want a personal greeting?
+                form.d-flex.gap-2(method='get')
+                  input.form-control(type='text', name='name', placeholder='Enter your name...', required)
+                  button.btn.btn-success(type='submit') Greet Me!
+              else
+                .d-grid.gap-2
+                  a.btn.btn-outline-success(href=routes.helloPath()) Try Again
+                  a.btn.btn-primary(href=routes.rootPath()) Back to Home
+          
+          if !name
+            .mt-4
+              p.text-muted.small
+                | Try: 
+                a.link-success(href=`${routes.helloPath()}?name=Alex`) Alex
+                |  • 
+                a.link-success(href=`${routes.helloPath()}?name=Maria`) Maria
+                |  • 
+                a.link-success(href=`${routes.helloPath()}?name=John`) John
