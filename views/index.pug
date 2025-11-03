@@ -5,6 +5,12 @@ block content
     .col-md-8.mx-auto.text-center
       h1.display-4 🚀 Welcome!
       p.lead This is my first Fastify application with Pug templates
+      
+      if !visited
+        .alert.alert-info.mt-3
+          strong 👋 First time here?
+          p.mb-0 This message is shown only once. If you want to see it again, clear your cookies!
+      
       hr.my-4
       p Here you can:
       .row

@@ -3,6 +3,7 @@ import AutoLoad from '@fastify/autoload'
 import view from '@fastify/view'
 import pug from 'pug'
 import formbody from '@fastify/formbody'
+import fastifyCookie from '@fastify/cookie'
 import { fileURLToPath } from 'node:url'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -20,6 +21,9 @@ export default async function (app, opts) {
 
   // Setup form body parser
   await app.register(formbody)
+
+  // Setup cookies
+  await app.register(fastifyCookie)
 
   // Place here your custom code!
 

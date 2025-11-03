@@ -2,7 +2,10 @@ import routes from '../lib/routes.js'
 
 export default async function (app, opts) {
   app.get(routes.rootPath(), async function (request, reply) {
-    return reply.view('index', { routes })
+    const visited = request.cookies.visited
+    reply.cookie('visited', true)
+    
+    return reply.view('index', { routes, visited })
   })
 
   app.get(routes.helloPath(), async (request, reply) => {
