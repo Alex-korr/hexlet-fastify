@@ -5,7 +5,11 @@ export default async function (app, opts) {
     const visited = request.cookies.visited
     reply.cookie('visited', true)
     
-    return reply.view('index', { routes, visited })
+    return reply.view('index', { 
+      routes, 
+      visited,
+      userId: request.session.userId  // передаём информацию о залогиненном пользователе
+    })
   })
 
   app.get(routes.helloPath(), async (request, reply) => {

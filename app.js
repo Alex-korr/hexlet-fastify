@@ -4,6 +4,7 @@ import view from '@fastify/view'
 import pug from 'pug'
 import formbody from '@fastify/formbody'
 import fastifyCookie from '@fastify/cookie'
+import session from '@fastify/session'
 import { fileURLToPath } from 'node:url'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -24,6 +25,12 @@ export default async function (app, opts) {
 
   // Setup cookies
   await app.register(fastifyCookie)
+
+  // Setup sessions
+  await app.register(session, {
+    secret: 'a secret with minimum length of 32 characters',
+    cookie: { secure: false }
+  })
 
   // Place here your custom code!
 

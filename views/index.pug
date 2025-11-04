@@ -11,6 +11,14 @@ block content
           strong 👋 First time here?
           p.mb-0 This message is shown only once. If you want to see it again, clear your cookies!
       
+      .mt-3
+        if userId
+          p Welcome back, #{userId}!
+          form(action="/session/delete" method="post")
+            button.btn.btn-outline-danger(type="submit") 🚪 Logout
+        else
+          a.btn.btn-outline-primary(href="/session/new") 🔐 Login
+      
       hr.my-4
       p Here you can:
       .row
