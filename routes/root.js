@@ -4,11 +4,13 @@ export default async function (app, opts) {
   app.get(routes.rootPath(), async function (request, reply) {
     const visited = request.cookies.visited
     reply.cookie('visited', true)
+    const messages = reply.flash()
     
     return reply.view('index', { 
       routes, 
       visited,
-      userId: request.session.userId  // передаём информацию о залогиненном пользователе
+      userId: request.session.userId,  // передаём информацию о залогиненном пользователе
+      messages
     })
   })
 

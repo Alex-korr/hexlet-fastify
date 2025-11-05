@@ -10,12 +10,14 @@ const users = [
 export default async function (app, opts) {
   // READ: List all users
   app.get(routes.usersPath(), async (request, reply) => {
-    return reply.view('users/index', { users, routes })
+    const messages = reply.flash()
+    return reply.view('users/index', { users, routes, messages })
   })
 
   // READ: Show form for creating new user  
   app.get(routes.newUserPath(), async (request, reply) => {
-    return reply.view('users/new', { routes })
+    const messages = reply.flash()
+    return reply.view('users/new', { routes, messages })
   })
 
   // READ: Show specific user
@@ -62,17 +64,10 @@ export default async function (app, opts) {
     
     // Check if validation failed
     if (request.validationError) {
-      const data = {
-        name,
-        email,
-        password,
-        passwordConfirmation,
-        error: request.validationError,
-        routes,
-      }
+      request.flash('error', 'Registration failed! Please check the form.')
       
-      // Re-render form with errors and preserved data
-      return reply.view('users/new', data)
+      // Redirect back to form (Flash will show on next request)
+      return reply.redirect(routes.newUserPath())
     }
     
     // Data normalization
@@ -85,6 +80,9 @@ export default async function (app, opts) {
     
     // Save the user
     users.push(user)
+    
+    // Add success flash message
+    request.flash('success', 'User successfully created!')
     
     // Redirect to user list
     return reply.redirect(routes.usersPath())

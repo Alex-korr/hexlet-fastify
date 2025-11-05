@@ -3,6 +3,17 @@ extends layouts/main.pug
 block content
   .row
     .col-md-8.mx-auto.text-center
+      //- Display flash messages
+      if messages && messages.success && messages.success.length > 0
+        .alert.alert-success.alert-dismissible.fade.show(role='alert')
+          | ✅ #{messages.success[0]}
+          button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+      
+      if messages && messages.error && messages.error.length > 0
+        .alert.alert-danger.alert-dismissible.fade.show(role='alert')
+          | ❌ #{messages.error[0]}
+          button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+      
       h1.display-4 🚀 Welcome!
       p.lead This is my first Fastify application with Pug templates
       

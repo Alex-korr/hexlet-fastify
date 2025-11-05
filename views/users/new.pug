@@ -5,7 +5,13 @@ block content
     .col-md-6.mx-auto
       h1.mb-4 📝 User Registration
       
-      // Display error message if validation failed
+      //- Display flash messages
+      if messages && messages.error && messages.error.length > 0
+        .alert.alert-danger.alert-dismissible.fade.show(role='alert')
+          | ❌ #{messages.error[0]}
+          button.btn-close(type='button', data-bs-dismiss='alert', aria-label='Close')
+      
+      //- Display error message if validation failed
       if error
         .alert.alert-danger.mb-3
           strong Validation Error:

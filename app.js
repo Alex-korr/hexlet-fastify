@@ -5,6 +5,7 @@ import pug from 'pug'
 import formbody from '@fastify/formbody'
 import fastifyCookie from '@fastify/cookie'
 import session from '@fastify/session'
+import flash from '@fastify/flash'
 import { fileURLToPath } from 'node:url'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -31,6 +32,9 @@ export default async function (app, opts) {
     secret: 'a secret with minimum length of 32 characters',
     cookie: { secure: false }
   })
+
+  // Setup flash messages
+  await app.register(flash)
 
   // Place here your custom code!
 

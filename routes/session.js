@@ -17,18 +17,19 @@ export default (app) => {
 
     if (users[username] === hashedPassword) {
       req.session.userId = username;
+      req.flash('success', 'Welcome back! You are now logged in.');
       return reply.redirect('/');
     }
 
+    req.flash('error', 'Wrong username or password');
     return reply.view('session/new', { routes, error: 'Wrong username or password' });
   });
 
   app.post('/session/delete', (req, reply) => {
-    req.session.destroy((err) => {
-      if (err) {
-        return reply.status(500).send('Error logging out');
-      }
-      reply.redirect('/');
-    });
+    // Remove userId but keep session for flash message
+    delete req.session.userId;
+    req.flash('success', 'You have been logged out successfully.');
+    
+    return reply.redirect('/');
   });
 };
