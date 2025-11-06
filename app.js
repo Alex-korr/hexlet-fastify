@@ -7,6 +7,7 @@ import fastifyCookie from '@fastify/cookie'
 import session from '@fastify/session'
 import flash from '@fastify/flash'
 import { fileURLToPath } from 'node:url'
+import { initDatabase } from './lib/db.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -35,6 +36,9 @@ export default async function (app, opts) {
 
   // Setup flash messages
   await app.register(flash)
+
+  // Initialize database
+  initDatabase()
 
   // Place here your custom code!
 

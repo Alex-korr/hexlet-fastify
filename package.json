@@ -27,6 +27,7 @@
     "fastify-cli": "^7.4.0",
     "fastify-plugin": "^5.0.0",
     "pug": "^3.0.3",
+    "sqlite3": "^5.1.7",
     "yup": "^1.7.1"
   },
   "devDependencies": {

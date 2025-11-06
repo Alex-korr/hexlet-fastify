@@ -1,17 +1,22 @@
 import * as yup from 'yup'
 import routes from '../lib/routes.js'
-
-// Simple user storage (instead of a database)
-const users = [
-  { id: 1, name: 'John Smith', email: 'john@example.com' },
-  { id: 2, name: 'Jane Doe', email: 'jane@example.com' }
-]
+import db from '../lib/db.js'
 
 export default async function (app, opts) {
   // READ: List all users
   app.get(routes.usersPath(), async (request, reply) => {
-    const messages = reply.flash()
-    return reply.view('users/index', { users, routes, messages })
+    return new Promise((resolve, reject) => {
+      db.all('SELECT * FROM users', (error, users) => {
+        if (error) {
+          reject(error)
+          return
+        }
+        const messages = reply.flash()
+        reply.view('users/index', { users, routes, messages })
+          .then(() => resolve())
+          .catch(reject)
+      })
+    })
   })
 
   // READ: Show form for creating new user  
@@ -23,13 +28,25 @@ export default async function (app, opts) {
   // READ: Show specific user
   app.get(routes.userPath(':id'), async (request, reply) => {
     const { id } = request.params
-    const user = users.find((item) => item.id === parseInt(id))
     
-    if (!user) {
-      return reply.code(404).send({ message: 'User not found' })
-    }
-    
-    return reply.view('users/show', { user, routes })
+    return new Promise((resolve, reject) => {
+      db.get('SELECT * FROM users WHERE id = ?', [id], (error, user) => {
+        if (error) {
+          reject(error)
+          return
+        }
+        
+        if (!user) {
+          reply.code(404).send({ message: 'User not found' })
+          resolve()
+          return
+        }
+        
+        reply.view('users/show', { user, routes })
+          .then(() => resolve())
+          .catch(reject)
+      })
+    })
   })
 
   // CREATE: Create new user
@@ -71,21 +88,31 @@ export default async function (app, opts) {
     }
     
     // Data normalization
-    const user = {
-      id: users.length + 1, // Simple ID generation
-      name: name.trim(),    // Remove whitespace
-      email: email.trim().toLowerCase(), // Email to lowercase
-      password: password    // Password as is (should be hashed in production!)
-    }
+    const userName = name.trim()
+    const userEmail = email.trim().toLowerCase()
     
-    // Save the user
-    users.push(user)
-    
-    // Add success flash message
-    request.flash('success', 'User successfully created!')
-    
-    // Redirect to user list
-    return reply.redirect(routes.usersPath())
+    // Save to database
+    return new Promise((resolve) => {
+      const stmt = db.prepare('INSERT INTO users (name, email) VALUES (?, ?)')
+      
+      stmt.run([userName, userEmail], function(error) {
+        if (error) {
+          request.flash('error', 'Failed to create user!')
+          reply.redirect(routes.newUserPath())
+          resolve()
+          return
+        }
+        
+        // Add success flash message
+        request.flash('success', 'User successfully created!')
+        
+        // Redirect to user list
+        reply.redirect(routes.usersPath())
+        resolve()
+      })
+      
+      stmt.finalize()
+    })
   })
 
   // READ: Show form for editing user
